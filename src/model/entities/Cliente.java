@@ -13,22 +13,44 @@ public class Cliente {
     
     private int codigo;
     private String nome;
+    private char CPF;
     private String email;
     private char ddd;
     private char contato;
+    private String OBS;
+    
     
     public Cliente(){
         
     }
 
-    public Cliente(int codigo, String nome, String email, char ddd, char contato) {
+    public Cliente(int codigo, String nome, char CPF, String email, char ddd, char contato, String OBS) {
         this.codigo = codigo;
         this.nome = nome;
+        this.CPF = CPF;
         this.email = email;
         this.ddd = ddd;
         this.contato = contato;
+        this.OBS = OBS;
     }
 
+    public char getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(char CPF) {
+        this.CPF = CPF;
+    }
+
+    public String getOBS() {
+        return OBS;
+    }
+
+    public void setOBS(String OBS) {
+        this.OBS = OBS;
+    }
+
+    
     public int getCodigo() {
         return codigo;
     }
@@ -96,9 +118,10 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "codigo=" + codigo + ", nome=" + nome + ", email=" + email + ", ddd=" + ddd + ", contato=" + contato + '}';
+        return "Cliente{" + "codigo=" + codigo + ", nome=" + nome + ", CPF=" + CPF + ", email=" + email + ", ddd=" + ddd + ", contato=" + contato + ", OBS=" + OBS + '}';
     }
-    
+
+ 
     
     
 }
