@@ -18,18 +18,20 @@ public class Agendamento {
     private Cliente cliente;
     private Interno interno;
     private Double valorTotal;
+    private Double duracaoTotal;
     private char Cancelado;
 
     public Agendamento() {
 
     }
 
-    public Agendamento(int id, Date DataHoraMarcada, Cliente cliente, Interno interno, Double valorTotal) {
+    public Agendamento(int id, Date DataHoraMarcada, Cliente cliente, Interno interno, Double valorTotal, Double duracaoTotal) {
         this.id = id;
         this.DataHoraMarcada = DataHoraMarcada;
         this.cliente = cliente;
         this.interno = interno;
         this.valorTotal = valorTotal;
+        this.duracaoTotal = duracaoTotal;
         this.Cancelado = 'N';
     }
 
@@ -72,6 +74,15 @@ public class Agendamento {
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
+
+    public Double getDuracaoTotal() {
+        return duracaoTotal;
+    }
+
+    public void setDuracaoTotal(Double duracaoTotal) {
+        this.duracaoTotal = duracaoTotal;
+    }
+    
 
     public char getCancelado() {
         return Cancelado;
