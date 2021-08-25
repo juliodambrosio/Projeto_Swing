@@ -26,10 +26,10 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton2" min="-2" pref="191" max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" pref="191" max="-2" attributes="0"/>
-                  <Component id="jButton3" min="-2" pref="191" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="191" max="-2" attributes="0"/>
+                  <Component id="btnInternos" min="-2" pref="191" max="-2" attributes="0"/>
+                  <Component id="btnProcedimentos" min="-2" pref="191" max="-2" attributes="0"/>
+                  <Component id="btnAgendamentos" min="-2" pref="191" max="-2" attributes="0"/>
+                  <Component id="btnClientes" min="-2" pref="191" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="107" max="32767" attributes="0"/>
           </Group>
@@ -44,13 +44,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="btnClientes" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="btnInternos" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+              <Component id="btnAgendamentos" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+              <Component id="btnProcedimentos" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="88" max="32767" attributes="0"/>
               <Component id="jButton5" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -59,15 +59,18 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnClientes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clientes"/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="btnClientes"/>
       </AccessibilityProperties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClientesActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnInternos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Internos"/>
       </Properties>
@@ -75,7 +78,7 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="btnInternos"/>
       </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnAgendamentos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Agendamentos"/>
       </Properties>
@@ -83,7 +86,7 @@
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="btnAgendamentos"/>
       </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btnProcedimentos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Procedimentos"/>
       </Properties>

@@ -5,6 +5,10 @@
  */
 package model.entities;
 
+import DAO.ClientesDAO;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author JD
@@ -12,11 +16,11 @@ package model.entities;
 public class Cliente {
     
     private int id;
-    private int codigo;
+    private Integer codigo;
     private String nome;
-    private char cpf;
-    private char ddd;
-    private char telefone;
+    private String cpf;
+    private String ddd;
+    private String telefone;
     private String Email;
     private String OBS;
     
@@ -24,7 +28,7 @@ public class Cliente {
         
     }
 
-    public Cliente(int id, int codigo, String nome, char cpf, char ddd, char telefone, String Email, String OBS) {
+    public Cliente(int id, Integer codigo, String nome, String cpf, String ddd, String telefone, String Email, String OBS) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
@@ -43,11 +47,11 @@ public class Cliente {
         this.id = id;
     }
 
-    public int getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -59,27 +63,27 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public char getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(char cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public char getDdd() {
+    public String getDdd() {
         return ddd;
     }
 
-    public void setDdd(char ddd) {
+    public void setDdd(String ddd) {
         this.ddd = ddd;
     }
 
-    public char getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(char telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -124,6 +128,25 @@ public class Cliente {
         return true;
     }
     
+    public void cadastrarCliente(Cliente cliente){
+        new ClientesDAO().CadastrarCliente(cliente);
+    }
     
+    public void atualizarCliente(Cliente cliente){
+        
+    }
+    public void excluirCliente(Cliente cliente){
+        
+    }
+    
+    public Cliente pesquisarClientePorCodigo(Integer codigo){
+        Cliente cliente = new Cliente();
+        return cliente;
+    }
+    
+    public List<Cliente> pesquisarClientes(Cliente cliente){
+        List<Cliente> listaClientes = new ArrayList<>();
+        return listaClientes;
+    }
     
 }

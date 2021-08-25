@@ -4,11 +4,7 @@
  * and open the template in the editor.
  */
 package ConexaoDB;
-
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
-import java.util.Properties;
 import Exception.DBException;
 
 
@@ -22,9 +18,15 @@ public class ConexaoDB {
 	public static Connection getConnection(){
 		if(conn == null) {
 			try {
-				Properties props = loadProperties();
-				String url = props.getProperty("dburl");
-				conn = DriverManager.getConnection(url,props);
+				                                
+                                String db = "projeto_swing";
+                                String user = "sa";
+                                String pass = "promaster";
+                                String url ="jdbc:sqlserver://localhost:1433;"
+                                        + "databaseName=" + db + ";"
+                                        + "user=" + user + ";"
+                                        + "password=" +  pass +";";
+				conn = DriverManager.getConnection(url);
 				
 			}
 			catch(SQLException e) {
@@ -70,14 +72,5 @@ public class ConexaoDB {
 		}
 	}
 	
-	public static Properties loadProperties() {
-		try(FileInputStream fs = new FileInputStream("db.properties")) {
-			Properties props = new Properties();
-			props.load(fs);
-			return props;
-		}
-		catch(IOException e) {
-			throw new DBException("Erro: " + e.getMessage());
-		}
-	}
+
 }

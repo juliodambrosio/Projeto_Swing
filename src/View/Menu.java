@@ -27,21 +27,26 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnClientes = new javax.swing.JButton();
+        btnInternos = new javax.swing.JButton();
+        btnAgendamentos = new javax.swing.JButton();
+        btnProcedimentos = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Clientes");
+        btnClientes.setText("Clientes");
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Internos");
+        btnInternos.setText("Internos");
 
-        jButton3.setText("Agendamentos");
+        btnAgendamentos.setText("Agendamentos");
 
-        jButton4.setText("Procedimentos");
+        btnProcedimentos.setText("Procedimentos");
 
         jButton5.setText("Sair");
 
@@ -52,10 +57,10 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(102, 102, 102)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnInternos, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcedimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgendamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(107, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -66,26 +71,31 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addComponent(jButton1)
+                .addComponent(btnClientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(btnInternos)
                 .addGap(13, 13, 13)
-                .addComponent(jButton3)
+                .addComponent(btnAgendamentos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addComponent(btnProcedimentos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(jButton5)
                 .addGap(20, 20, 20))
         );
 
-        jButton1.getAccessibleContext().setAccessibleName("btnClientes");
-        jButton2.getAccessibleContext().setAccessibleName("btnInternos");
-        jButton3.getAccessibleContext().setAccessibleName("btnAgendamentos");
-        jButton4.getAccessibleContext().setAccessibleName("btnProcedimentos");
+        btnClientes.getAccessibleContext().setAccessibleName("btnClientes");
+        btnInternos.getAccessibleContext().setAccessibleName("btnInternos");
+        btnAgendamentos.getAccessibleContext().setAccessibleName("btnAgendamentos");
+        btnProcedimentos.getAccessibleContext().setAccessibleName("btnProcedimentos");
         jButton5.getAccessibleContext().setAccessibleName("btnSair");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+       new Clientes().setVisible(true);
+      
+    }//GEN-LAST:event_btnClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,10 +133,10 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnAgendamentos;
+    private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnInternos;
+    private javax.swing.JButton btnProcedimentos;
     private javax.swing.JButton jButton5;
     // End of variables declaration//GEN-END:variables
 }
