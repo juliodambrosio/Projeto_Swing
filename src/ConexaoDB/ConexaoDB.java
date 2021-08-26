@@ -13,9 +13,9 @@ import Exception.DBException;
  * @author JD
  */
 public class ConexaoDB {
-    private static Connection conn = null;
+   // private static Connection conn = null;
 	
-	public static Connection getConnection(){
+	public static Connection getConnection(Connection conn){
 		if(conn == null) {
 			try {
 				                                
@@ -38,7 +38,7 @@ public class ConexaoDB {
 		
 	}
 	
-	public static void closeConnection() {
+	public static void closeConnection(Connection conn) {
 		if(conn != null) {
 			try {
 				conn.close();

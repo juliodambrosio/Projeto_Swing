@@ -20,9 +20,10 @@ import ConexaoDB.*;
 public class ClientesDAO {
     
     public void CadastrarCliente(Cliente cliente){
-         Connection conn =  ConexaoDB.getConnection();
+         Connection conn = null;
          PreparedStatement st = null;
          try{
+             conn =  ConexaoDB.getConnection(conn);
              st = conn.prepareStatement("Insert into Clientes("
                      + "Codigo"   + ","
                      + "Nome"     + ","
@@ -59,8 +60,9 @@ public class ClientesDAO {
          }
          
          finally{
-             ConexaoDB.closeConnection();
+             ConexaoDB.closeConnection(conn);
              ConexaoDB.closeStatement(st);
+             
          }
      
         
