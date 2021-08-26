@@ -19,11 +19,13 @@ import ConexaoDB.*;
  */
 public class ClientesDAO {
     
+    private Connection conn = null;
+    
     public void CadastrarCliente(Cliente cliente){
-         Connection conn = null;
+        
          PreparedStatement st = null;
          try{
-             conn =  ConexaoDB.getConnection(conn);
+             conn = ConexaoDB.getConnection();
              st = conn.prepareStatement("Insert into Clientes("
                      + "Codigo"   + ","
                      + "Nome"     + ","
@@ -60,7 +62,8 @@ public class ClientesDAO {
          }
          
          finally{
-             ConexaoDB.closeConnection(conn);
+             ConexaoDB.closeConnection();
+             conn = null;
              ConexaoDB.closeStatement(st);
              
          }
@@ -68,5 +71,30 @@ public class ClientesDAO {
         
     }
     
+    public void alterarCliente(Cliente cliente){
+        Connection conn = null;
+        PreparedStatement st = null;
+        
+        try{
+            conn = ConexaoDB.getConnection();
+            st = conn.prepareStatement("update Clientes set"
+                    +"Codigo"   + "=" + "?" + ","
+                    +"Nome"     + "=" + "?" + ","
+                    +"CPF"      + "=" + "?" + ","
+                    +"Telefone" + "=" + "?" + ","
+                    +"Email"    + "=" + "?" + ","
+                    +"OBS"      + "=" + "?" 
+                    +"where id =" + "?");
+            if(cliente.getCodigo() == null){
+                st.setNull(1, 0);
+            }
+            else{
+                st.setInt(1, cliente.getCodigo());
+            }
+        }
+        catch(SQLException e){
+            throw new DBException("Erro" + e.getMessage());
+        }
+    }
     
 }

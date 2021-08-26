@@ -13,35 +13,33 @@ import Exception.DBException;
  * @author JD
  */
 public class ConexaoDB {
-   // private static Connection conn = null;
+    
+    public static Connection conn;
 	
-	public static Connection getConnection(Connection conn){
-		if(conn == null) {
-			try {
-				                                
-                                String db = "projeto_swing";
-                                String user = "sa";
-                                String pass = "promaster";
-                                String url ="jdbc:sqlserver://localhost:1433;"
-                                        + "databaseName=" + db + ";"
-                                        + "user=" + user + ";"
-                                        + "password=" +  pass +";";
-				conn = DriverManager.getConnection(url);
-				
-			}
-			catch(SQLException e) {
-				throw new DBException("Erro: " + e.getMessage());
-			}
-		
-		}
-		return conn;
+    public static Connection getConnection(){
+        try {
+            String db = "projeto_swing";
+            String user = "sa";
+            String pass = "promaster";
+            String url = "jdbc:sqlserver://localhost:1433;"
+                    + "databaseName=" + db + ";"
+                    + "user=" + user + ";"
+                    + "password=" + pass + ";";
+            conn = DriverManager.getConnection(url);
+
+        }
+        catch (SQLException e) {
+            throw new DBException("Erro: " + e.getMessage());
+        }
+        return conn;
 		
 	}
 	
-	public static void closeConnection(Connection conn) {
+	public static void closeConnection() {
 		if(conn != null) {
 			try {
 				conn.close();
+                                conn = null;
 			}
 			catch(SQLException e) {
 				throw new DBException("Erro: " + e.getMessage());
