@@ -8,6 +8,7 @@ package View;
 import DAO.ClientesDAO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.entities.Cliente;
 
 
 /**
@@ -172,7 +173,35 @@ public class PesquisarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-        // TODO add your handling code here:
+     
+      if(tblClientes.getSelectedRow() != -1){
+         ClientesDAO clidao = new ClientesDAO();
+         Cliente c = new Cliente();
+         
+         c.setId((Integer)tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));
+         
+         int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir cliente selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+         if(confirm == JOptionPane.YES_OPTION){
+             try {
+                 clidao.apagarCliente(c);
+                 JOptionPane.showMessageDialog(null, "Registro apagado com sucesso !!");
+             } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Erro ao deletar cliente: " + e.getMessage());
+             } finally {
+                 carregarTabela();
+             }
+                       
+         }
+         else{
+              carregarTabela();
+         }
+         
+      }
+      else {
+          JOptionPane.showMessageDialog(null, "Selecione uma Linha para excluir");
+      }
+        
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     /**
