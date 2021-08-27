@@ -8,9 +8,13 @@ package DAO;
 import Exception.DBException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 import model.entities.Cliente;
 import ConexaoDB.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -58,7 +62,7 @@ public class ClientesDAO {
              st.executeUpdate();
          }
          catch(SQLException ex){
-             throw new DBException("Erro: "+ ex.getMessage());
+             throw new DBException("Erro ao Cadastrar Cliente "+ ex.getMessage());
          }
          
          finally{
@@ -72,9 +76,7 @@ public class ClientesDAO {
     }
     
     public void alterarCliente(Cliente cliente){
-        Connection conn = null;
-        PreparedStatement st = null;
-        
+        PreparedStatement st=null;
         try{
             conn = ConexaoDB.getConnection();
             st = conn.prepareStatement("update Clientes set"
@@ -84,17 +86,114 @@ public class ClientesDAO {
                     +"Telefone" + "=" + "?" + ","
                     +"Email"    + "=" + "?" + ","
                     +"OBS"      + "=" + "?" 
-                    +"where id =" + "?");
+                    +"where id ="     + "?");
             if(cliente.getCodigo() == null){
                 st.setNull(1, 0);
             }
             else{
                 st.setInt(1, cliente.getCodigo());
             }
+            st.setString(2, cliente.getNome());
+            st.setString(3, cliente.getCpf());
+            st.setString(4, cliente.getDdd() + cliente.getTelefone());
+            st.setString(5, cliente.getEmail());
+            st.setString(6, cliente.getOBS());
+            st.setInt(7, cliente.getId());
+            
+            st.executeUpdate();
+            
         }
         catch(SQLException e){
             throw new DBException("Erro" + e.getMessage());
         }
+        finally {
+            ConexaoDB.closeConnection();
+            ConexaoDB.closeStatement(st);
+
+        }
     }
     
+    public void apagarCliente(int id){
+       PreparedStatement st = null;
+        try{
+            conn = ConexaoDB.getConnection();
+            st = conn.prepareStatement("delete from Clientes"
+                    + "where id = ? ");
+            st.executeUpdate();
+        }
+        catch(SQLException e){
+            throw new DBException("Erro ao Deletar: " + e.getMessage());
+        }
+        finally{
+            ConexaoDB.closeConnection();
+            ConexaoDB.closeStatement(st);
+        }
+    }
+    
+    
+    public List<Cliente> pesquisarClientes(){
+        conn = ConexaoDB.getConnection();
+        Statement st = null;
+        ResultSet rs = null;
+        List<Cliente> clientes = new ArrayList<>();
+        
+        try{
+            
+            st = conn.createStatement();
+            rs = st.executeQuery("Select ID,Codigo,Nome,CPF,Telefone,Email from Clientes");
+            
+            while(rs.next()){
+                Cliente c = criarCliente(rs);
+                clientes.add(c);                
+            }
+            
+            return clientes;
+        }
+        catch(SQLException e){
+            throw new DBException("Erro ao Pesquisar Cliente: " + e.getMessage());
+        }
+        finally {
+            ConexaoDB.closeConnection();
+            ConexaoDB.closeStatement(st);
+            ConexaoDB.closeResultSet(rs);
+
+        }
+        
+        
+    }
+    
+    public Cliente pesquisarPorId(int id){
+        Statement st = null;
+        ResultSet rs = null;
+        try{
+            conn =  ConexaoDB.getConnection();
+            st =  conn.createStatement();
+            rs = st.executeQuery("Select ID,Codigo,Nome,CPF,Telefone,Email from Clientes");
+            
+            Cliente c = criarCliente(rs);
+            return c;
+        }
+        catch(SQLException e){
+            throw new DBException("Erro ao Procurar Cliente: " + e.getMessage());
+        }
+    }
+    
+    public Cliente criarCliente(ResultSet rs){
+        try{
+            Cliente c = new Cliente();
+            c.setId(rs.getInt("ID"));
+            c.setCodigo(rs.getInt("Codigo"));
+            c.setNome(rs.getString("Nome"));
+            c.setCpf(rs.getString("CPF"));
+            c.setTelefone(rs.getString("Telefone"));
+            //c.setDdd(rs.getString("Telefone").substring(0, 1));
+            //c.setTelefone(rs.getString("Telefone").substring(1, rs.getString("Telefone").length() - 2));
+            c.setEmail(rs.getString("Email"));
+            return c;
+        }
+        catch(SQLException e){
+            throw new DBException("Erro ao Criar Cliente ResultSET" + e.getMessage());
+        }
+             
+    }
 }

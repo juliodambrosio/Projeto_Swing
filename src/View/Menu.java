@@ -93,7 +93,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-       new Clientes().setVisible(true);
+       new PesquisarCliente().setVisible(true);
       
     }//GEN-LAST:event_btnClientesActionPerformed
 
