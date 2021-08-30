@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Cliente {
     
-    private int id;
+    private Integer id;
     private Integer codigo;
     private String nome;
     private String cpf;
@@ -39,11 +39,11 @@ public class Cliente {
         this.OBS = OBS;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -132,20 +132,28 @@ public class Cliente {
         new ClientesDAO().CadastrarCliente(cliente);
     }
     
-    public void atualizarCliente(Cliente cliente){
-        
+    public void alterarCliente(Cliente cliente){
+        new ClientesDAO().alterarCliente(cliente);
     }
     public void excluirCliente(Cliente cliente){
-        
+        new ClientesDAO().apagarCliente(cliente);
     }
     
     public Cliente pesquisarClientePorCodigo(Integer codigo){
         Cliente cliente = new Cliente();
+        cliente = new ClientesDAO().pesquisarPorCodigo(codigo);
         return cliente;
     }
     
-    public List<Cliente> pesquisarClientes(Cliente cliente){
+     public Cliente pesquisarClientePorId(Integer id){
+        Cliente cliente = new Cliente();
+        cliente = new ClientesDAO().pesquisarPorId(codigo);
+        return cliente;
+    }
+    
+    public List<Cliente> pesquisarClientes(){
         List<Cliente> listaClientes = new ArrayList<>();
+        listaClientes =  new ClientesDAO().pesquisarClientes();
         return listaClientes;
     }
     

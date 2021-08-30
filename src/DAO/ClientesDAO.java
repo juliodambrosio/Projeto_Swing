@@ -113,12 +113,12 @@ public class ClientesDAO {
         }
     }
     
-    public void apagarCliente(int id){
+    public void apagarCliente(Cliente cliente){
        PreparedStatement st = null;
         try{
             conn = ConexaoDB.getConnection();
-            st = conn.prepareStatement("delete from Clientes"
-                    + "where id = ? ");
+            st = conn.prepareStatement("delete from Clientes where id = ? ");
+            st.setInt(1, cliente.getId());
             st.executeUpdate();
         }
         catch(SQLException e){
@@ -140,7 +140,7 @@ public class ClientesDAO {
         try{
             
             st = conn.createStatement();
-            rs = st.executeQuery("Select ID,Codigo,Nome,CPF,Telefone,Email from Clientes");
+            rs = st.executeQuery("Select ID,Codigo,Nome,CPF,Telefone,Email from Clientes order by Nome");
             
             while(rs.next()){
                 Cliente c = criarCliente(rs);
@@ -162,13 +162,33 @@ public class ClientesDAO {
         
     }
     
-    public Cliente pesquisarPorId(int id){
-        Statement st = null;
+    public Cliente pesquisarPorId(Integer id){
+        PreparedStatement st = null;
         ResultSet rs = null;
         try{
             conn =  ConexaoDB.getConnection();
-            st =  conn.createStatement();
-            rs = st.executeQuery("Select ID,Codigo,Nome,CPF,Telefone,Email from Clientes");
+            st =  conn.prepareStatement("Select ID,Codigo,Nome,CPF,Telefone,Email from Clientes "
+                    + "where id = ?");
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            
+            Cliente c = criarClienteComOBS(rs);
+            return c;
+        }
+        catch(SQLException e){
+            throw new DBException("Erro ao Procurar Cliente: " + e.getMessage());
+        }
+    }
+    
+     public Cliente pesquisarPorCodigo(Integer codigo){
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn =  ConexaoDB.getConnection();
+            st =  conn.prepareStatement("Select ID,Codigo,Nome,CPF,Telefone,Email from Clientes "
+                    + "where Codigo = ?");
+            st.setInt(1, codigo);
+            rs = st.executeQuery();
             
             Cliente c = criarCliente(rs);
             return c;
@@ -178,8 +198,10 @@ public class ClientesDAO {
         }
     }
     
+    
     public Cliente criarCliente(ResultSet rs){
         try{
+            //ID,Codigo,Nome,CPF,Telefone,Email
             Cliente c = new Cliente();
             c.setId(rs.getInt("ID"));
             c.setCodigo(rs.getInt("Codigo"));
@@ -193,6 +215,28 @@ public class ClientesDAO {
         }
         catch(SQLException e){
             throw new DBException("Erro ao Criar Cliente ResultSET" + e.getMessage());
+        }
+             
+    }
+    
+    
+       public Cliente criarClienteComOBS(ResultSet rs){
+        try{
+            //ID,Codigo,Nome,CPF,Telefone,Email
+            Cliente c = new Cliente();
+            c.setId(rs.getInt("ID"));
+            c.setCodigo(rs.getInt("Codigo"));
+            c.setNome(rs.getString("Nome"));
+            c.setCpf(rs.getString("CPF"));
+            c.setTelefone(rs.getString("Telefone"));
+            //c.setDdd(rs.getString("Telefone").substring(0, 1));
+            //c.setTelefone(rs.getString("Telefone").substring(1, rs.getString("Telefone").length() - 2));
+            c.setEmail(rs.getString("Email"));
+            c.setOBS(rs.getString("OBS"));
+            return c;
+        }
+        catch(SQLException e){
+            throw new DBException("Erro ao Criar Cliente ResultSET: " + e.getMessage());
         }
              
     }

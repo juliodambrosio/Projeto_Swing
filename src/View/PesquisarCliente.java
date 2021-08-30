@@ -5,7 +5,7 @@
  */
 package View;
 
-import DAO.ClientesDAO;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.entities.Cliente;
@@ -28,9 +28,9 @@ public class PesquisarCliente extends javax.swing.JFrame {
         
         DefaultTableModel tbl =  (DefaultTableModel)tblClientes.getModel();
         tbl.setNumRows(0);
-        ClientesDAO clidao = new ClientesDAO();
+        Cliente clientes = new Cliente();
         
-        clidao.pesquisarClientes().forEach(c -> {
+        clientes.pesquisarClientes().forEach(c -> {
             tbl.addRow(new Object[]{
                 c.getId(),
                 c.getCodigo(),
@@ -60,7 +60,7 @@ public class PesquisarCliente extends javax.swing.JFrame {
         tblClientes = new javax.swing.JTable();
         btnDeletar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("CLIENTES");
 
@@ -101,6 +101,11 @@ public class PesquisarCliente extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblClientes);
@@ -154,7 +159,6 @@ public class PesquisarCliente extends javax.swing.JFrame {
 
         btnLimpar.getAccessibleContext().setAccessibleName("btnLimpar");
         btnNovo.getAccessibleContext().setAccessibleName("btnNovo");
-        btnDeletar.getAccessibleContext().setAccessibleName("Excluir");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -169,13 +173,22 @@ public class PesquisarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        new CadastroClientes().setVisible(true);
+        new CadastroClientes(null).setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
-
+    
+   public void mouseClicked(MouseEvent event) {
+        if (event.getClickCount() == 2 && event.getButton() == MouseEvent.BUTTON1) {
+            
+            JOptionPane.showMessageDialog(null, "Cliquei duas vezes!!");
+            Cliente c = new Cliente();
+            c.setId((int)tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));
+            new CadastroClientes(c.getId()).setVisible(true);
+        }
+    }
+    
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
      
       if(tblClientes.getSelectedRow() != -1){
-         ClientesDAO clidao = new ClientesDAO();
          Cliente c = new Cliente();
          
          c.setId((Integer)tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));
@@ -184,7 +197,7 @@ public class PesquisarCliente extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION);
          if(confirm == JOptionPane.YES_OPTION){
              try {
-                 clidao.apagarCliente(c);
+                 c.excluirCliente(c);
                  JOptionPane.showMessageDialog(null, "Registro apagado com sucesso !!");
              } catch (Exception e) {
                  JOptionPane.showMessageDialog(null, "Erro ao deletar cliente: " + e.getMessage());
@@ -203,6 +216,10 @@ public class PesquisarCliente extends javax.swing.JFrame {
       }
         
     }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        mouseClicked(evt);
+    }//GEN-LAST:event_tblClientesMouseClicked
 
     /**
      * @param args the command line arguments

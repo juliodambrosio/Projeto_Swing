@@ -6,20 +6,46 @@
 package View;
 
 import Controllers.ClienteController;
+import DAO.ClientesDAO;
 import javax.swing.JOptionPane;
 import model.entities.Cliente;
 
 /**
  *
- * @author User
+ * @author JD
  */
 public class CadastroClientes extends javax.swing.JFrame {
 
     /**
      * Creates new form Clientes
+     * @param id
      */
-    public CadastroClientes() {
+    
+    //private Integer id;
+    
+    public CadastroClientes(Integer id) {
         initComponents();
+    
+        if(id != null){
+              carregarCliente(id);
+        }
+      
+        
+        
+    }
+    
+    private void carregarCliente(Integer id){
+        
+        Cliente c = new ClientesDAO().pesquisarPorId(id);
+        
+        txtCodigo.setText(c.getCodigo().toString());
+        txtNome.setText(c.getNome());
+        txtCPF.setText(c.getCpf());
+        txtDDD.setText(c.getTelefone().substring(0, 1));
+        txtTelefone.setText(c.getTelefone().substring(1, c.getTelefone().length() - 2));
+        txtEmail.setText(c.getEmail());
+        txtOBS.setText(c.getOBS());
+        
     }
 
     /**
@@ -49,7 +75,7 @@ public class CadastroClientes extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nome");
 
@@ -265,7 +291,7 @@ public class CadastroClientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroClientes().setVisible(true);
+                new CadastroClientes(null).setVisible(true);
             }
         });
     }
