@@ -16,7 +16,7 @@ import model.entities.Cliente;
  */
 public class ClienteController {
    
-    public boolean CadastrarCliente(Cliente cliente){
+    public boolean cadastrarCliente(Cliente cliente){
         if(!cliente.getNome().isEmpty() || !cliente.getDdd().isEmpty() ||!cliente.getTelefone().isEmpty()){
             cliente.cadastrarCliente(cliente);
             return true;
@@ -25,6 +25,18 @@ public class ClienteController {
         return false;
         
     }
+    
+        public boolean alterarCliente(Cliente cliente){
+        if(!cliente.getNome().isEmpty() || !cliente.getDdd().isEmpty() ||!cliente.getTelefone().isEmpty()){
+            cliente.alterarCliente(cliente);
+            return true;
+            
+        }
+        return false;
+        
+    }
+    
+    
     
     public static boolean isCPF(String CPF) {
         //Codigo disponível no link: https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097

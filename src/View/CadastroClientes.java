@@ -21,7 +21,7 @@ public class CadastroClientes extends javax.swing.JFrame {
      * @param id
      */
     
-    //private Integer id;
+    private Integer id;
     
     public CadastroClientes(Integer id) {
         initComponents();
@@ -35,7 +35,7 @@ public class CadastroClientes extends javax.swing.JFrame {
     }
     
     private void carregarCliente(Integer id){
-        
+        this.id = id;
         Cliente c = new ClientesDAO().pesquisarPorId(id);
         
         txtCodigo.setText(c.getCodigo().toString());
@@ -223,7 +223,8 @@ public class CadastroClientes extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
       
-        try {
+        if(id == null){
+            try {
             Cliente cliente = new Cliente();
             ClienteController cc = new ClienteController();
 
@@ -234,12 +235,13 @@ public class CadastroClientes extends javax.swing.JFrame {
                  cliente.setCodigo(Integer.parseInt(txtCodigo.getText()));
             }
            
+            
             cliente.setNome(txtNome.getText());
             cliente.setCpf(txtCPF.getText());
             cliente.setDdd(txtDDD.getText());
             cliente.setTelefone(txtTelefone.getText());
 
-            if (cc.CadastrarCliente(cliente) == false) {
+            if (cc.cadastrarCliente(cliente) == false) {
                 JOptionPane.showMessageDialog(null, "Verifique se preencheu os campos corretamente!!");
             }
             else{
@@ -250,12 +252,55 @@ public class CadastroClientes extends javax.swing.JFrame {
                 txtDDD.setText("");
                 txtTelefone.setText("");
                 txtOBS.setText("");
+                this.dispose();
+                
             }
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
         }
        
+        }
+        else{
+            try{
+                Cliente cliente = new Cliente();
+                ClienteController cc = new ClienteController();
+                
+                if (txtCodigo.getText().isEmpty()) {
+                    cliente.setCodigo(null);
+                } 
+                else {
+                    cliente.setCodigo(Integer.parseInt(txtCodigo.getText()));
+                }
+
+                cliente.setId(id);
+                cliente.setNome(txtNome.getText());
+                cliente.setCpf(txtCPF.getText());
+                cliente.setDdd(txtDDD.getText());
+                cliente.setTelefone(txtTelefone.getText());
+                
+                if (cc.alterarCliente(cliente) == false) {
+                    JOptionPane.showMessageDialog(null, "Verifique se preencheu os campos corretamente!!");
+                } 
+                else {
+                    JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!!");
+                    txtNome.setText("");
+                    txtCPF.setText("");
+                    txtCodigo.setText("");
+                    txtDDD.setText("");
+                    txtTelefone.setText("");
+                    txtOBS.setText("");
+                    this.dispose();
+                    
+                }
+                
+
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Erro ao Alterar cliente: " +  e.getMessage());
+            }
+        }
+        
 
 
     }//GEN-LAST:event_btnSalvarActionPerformed

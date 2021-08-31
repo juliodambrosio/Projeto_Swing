@@ -79,13 +79,13 @@ public class ClientesDAO {
         PreparedStatement st=null;
         try{
             conn = ConexaoDB.getConnection();
-            st = conn.prepareStatement("update Clientes set"
+            st = conn.prepareStatement("update Clientes set "
                     +"Codigo"   + "=" + "?" + ","
                     +"Nome"     + "=" + "?" + ","
                     +"CPF"      + "=" + "?" + ","
                     +"Telefone" + "=" + "?" + ","
                     +"Email"    + "=" + "?" + ","
-                    +"OBS"      + "=" + "?" 
+                    +"OBS"      + "=" + "?" + " "
                     +"where id ="     + "?");
             if(cliente.getCodigo() == null){
                 st.setNull(1, 0);
@@ -104,7 +104,7 @@ public class ClientesDAO {
             
         }
         catch(SQLException e){
-            throw new DBException("Erro" + e.getMessage());
+            throw new DBException("Erro" + e.getMessage() + st);
         }
         finally {
             ConexaoDB.closeConnection();
@@ -167,13 +167,17 @@ public class ClientesDAO {
         ResultSet rs = null;
         try{
             conn =  ConexaoDB.getConnection();
-            st =  conn.prepareStatement("Select ID,Codigo,Nome,CPF,Telefone,Email from Clientes "
+            st =  conn.prepareStatement("Select ID,Codigo,Nome,CPF,Telefone,Email,OBS from Clientes "
                     + "where id = ?");
             st.setInt(1, id);
             rs = st.executeQuery();
             
-            Cliente c = criarClienteComOBS(rs);
-            return c;
+            Cliente c = new Cliente();
+            if(rs.next()){
+               c = criarClienteComOBS(rs);         
+            }
+            return c;  
+           
         }
         catch(SQLException e){
             throw new DBException("Erro ao Procurar Cliente: " + e.getMessage());
@@ -203,7 +207,7 @@ public class ClientesDAO {
         try{
             //ID,Codigo,Nome,CPF,Telefone,Email
             Cliente c = new Cliente();
-            c.setId(rs.getInt("ID"));
+            c.setId(rs.getInt("ID"));   
             c.setCodigo(rs.getInt("Codigo"));
             c.setNome(rs.getString("Nome"));
             c.setCpf(rs.getString("CPF"));

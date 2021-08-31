@@ -28,7 +28,7 @@ public class Cliente {
         
     }
 
-    public Cliente(int id, Integer codigo, String nome, String cpf, String ddd, String telefone, String Email, String OBS) {
+    public Cliente(Integer id, Integer codigo, String nome, String cpf, String ddd, String telefone, String Email, String OBS) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
