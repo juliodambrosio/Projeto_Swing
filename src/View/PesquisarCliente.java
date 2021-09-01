@@ -178,8 +178,6 @@ public class PesquisarCliente extends javax.swing.JFrame {
     
    public void mouseClicked(MouseEvent event) {
         if (event.getClickCount() == 2 && event.getButton() == MouseEvent.BUTTON1) {
-            
-            JOptionPane.showMessageDialog(null, "Cliquei duas vezes!!");
             Cliente c = new Cliente();
             c.setId((int)tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));
             new CadastroClientes(c.getId()).setVisible(true);

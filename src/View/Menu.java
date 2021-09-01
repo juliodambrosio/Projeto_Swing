@@ -43,6 +43,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         btnInternos.setText("Internos");
+        btnInternos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInternosActionPerformed(evt);
+            }
+        });
 
         btnAgendamentos.setText("Agendamentos");
 
@@ -96,6 +101,10 @@ public class Menu extends javax.swing.JFrame {
        new PesquisarCliente().setVisible(true);
       
     }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInternosActionPerformed
+       new CadastroInternos().setVisible(true);
+    }//GEN-LAST:event_btnInternosActionPerformed
 
     /**
      * @param args the command line arguments

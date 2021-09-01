@@ -193,8 +193,10 @@ public class ClientesDAO {
                     + "where Codigo = ?");
             st.setInt(1, codigo);
             rs = st.executeQuery();
-            
-            Cliente c = criarCliente(rs);
+            Cliente c = new Cliente();
+            if(rs.next()){
+                 c = criarCliente(rs);
+            }
             return c;
         }
         catch(SQLException e){

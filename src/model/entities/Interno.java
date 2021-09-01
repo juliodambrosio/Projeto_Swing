@@ -5,6 +5,8 @@
  */
 package model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import model.enums.PerfilUsuario;
 
 /**
@@ -13,8 +15,8 @@ import model.enums.PerfilUsuario;
  */
 public class Interno {
     
-    private int id;
-    private int codigo;
+    private Integer id;
+    private Integer codigo;
     private String nome;
     private char cpf;
     private char ddd;
@@ -28,7 +30,7 @@ public class Interno {
         
     }
 
-    public Interno(int id, int codigo, String nome, char cpf, char ddd, char telefone, String usuario, String senha, PerfilUsuario perfilUsuario) {
+    public Interno(Integer id, Integer codigo, String nome, char cpf, char ddd, char telefone, String usuario, String senha, PerfilUsuario perfilUsuario) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
@@ -41,19 +43,19 @@ public class Interno {
         this.inativo = 'N';
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -146,6 +148,30 @@ public class Interno {
         return true;
     }
     
+    public void cadastrarInterno(){
+        
+    }
     
+    public void updateInterno(Interno interno){
+        
+    }
     
+    public List<Interno> pesquisarInternos(){
+        List<Interno> listaClientes = new ArrayList<>();
+        
+        return listaClientes;
+    }
+    
+    public Interno pesqusarPorId(Integer id){
+        Interno i = new Interno();
+        return i;
+    }
+    public Interno pesquisarPorCodigo(Integer codigo){
+        Interno i = new Interno();
+        return i;
+    }
+    
+    public void excluirCliente(Integer id){
+        
+    }
 }
