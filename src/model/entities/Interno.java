@@ -18,9 +18,9 @@ public class Interno {
     private Integer id;
     private Integer codigo;
     private String nome;
-    private char cpf;
-    private char ddd;
-    private char telefone;
+    private String cpf;
+    private String ddd;
+    private String telefone;
     private String usuario;
     private String senha; 
     private PerfilUsuario perfilUsuario;
@@ -30,7 +30,7 @@ public class Interno {
         
     }
 
-    public Interno(Integer id, Integer codigo, String nome, char cpf, char ddd, char telefone, String usuario, String senha, PerfilUsuario perfilUsuario) {
+    public Interno(Integer id, Integer codigo, String nome, String cpf, String ddd, String telefone, String usuario, String senha, PerfilUsuario perfilUsuario) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
@@ -67,27 +67,27 @@ public class Interno {
         this.nome = nome;
     }
 
-    public char getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(char cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public char getDdd() {
+    public String getDdd() {
         return ddd;
     }
 
-    public void setDdd(char ddd) {
+    public void setDdd(String ddd) {
         this.ddd = ddd;
     }
 
-    public char getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(char telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -152,7 +152,7 @@ public class Interno {
         
     }
     
-    public void updateInterno(Interno interno){
+    public void alterarInterno(Interno interno){
         
     }
     
