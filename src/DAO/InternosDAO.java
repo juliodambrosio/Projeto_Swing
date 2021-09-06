@@ -27,6 +27,7 @@ public class InternosDAO {
    public void cadastrarInterno(Interno interno){
        PreparedStatement st = null;
        try{
+           conn = ConexaoDB.getConnection();
            st = conn.prepareStatement("insert into Internos( "
                    +"Codigo"        +","
                    +"Nome"          +","
@@ -81,6 +82,7 @@ public class InternosDAO {
         PreparedStatement st = null;
         
         try{
+            conn = ConexaoDB.getConnection();
             st = conn.prepareStatement("update Internos "
                     + "set codigo = ?"        + ","
                     + "set Nome = ?"          + ","
@@ -123,11 +125,12 @@ public class InternosDAO {
         ResultSet rs = null;
          
         try{
+            conn = ConexaoDB.getConnection();
              st = conn.createStatement();
              rs = st.executeQuery("Select ID,Nome,PerfilUsuario from Internos");
              
              while(rs.next()){
-                 Interno i = carregarCliente(rs);
+                 Interno i = carregarInternoGrid(rs);
                  listaInternos.add(i);
              } 
              return listaInternos;
@@ -146,21 +149,81 @@ public class InternosDAO {
     
     public Interno pesqusarPorId(Integer id){
         Interno i = new Interno();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = ConexaoDB.getConnection();
+            st = conn.prepareStatement("Select ID,Codigo,Nome,CPF,Telefone,Usuario,Senha,PerfilUsuario,Inativo "
+                    + "from Internos where ID = ?");
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            
+            while(rs.next()){
+                  i = carregarInternoCompleto(rs);
+                  return i;
+            }  
+        }
+        catch(SQLException e){
+            throw new DBException("Erro: " + e.getMessage());
+        }
+        finally{
+            ConexaoDB.closeConnection();
+            ConexaoDB.closeResultSet(rs);
+            ConexaoDB.closeStatement(st);
+        }
         return i;
     }
     public Interno pesquisarPorCodigo(Integer codigo){
         Interno i = new Interno();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = ConexaoDB.getConnection();
+            st = conn.prepareStatement("Select Codigo,Nome,CPF,Telefone,Usuario,Senha,PerfilUsuario,Inativo"
+                    + "from Internos where codigo = ?");
+            st.setInt(1, codigo);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                i = carregarInternoCompleto(rs);
+                return i;
+            }
+        } 
+        catch (SQLException e) {
+            throw new DBException("Erro: " + e.getMessage());
+        }
+        finally{
+            ConexaoDB.closeConnection();
+            ConexaoDB.closeResultSet(rs);
+            ConexaoDB.closeStatement(st);
+        }
         return i;
     }
-    
+
     public void excluirCliente(Integer id){
+        
+        PreparedStatement st = null;
+        try{
+            conn = ConexaoDB.getConnection();
+            st = conn.prepareStatement("Delete from Internos where id = ?");
+            st.setInt(1, id);
+            st.executeQuery();
+            
+        }
+        catch(SQLException e){
+            throw new DBException("Erro: " + e.getMessage());
+        }
+        finally{
+            ConexaoDB.closeConnection();
+            ConexaoDB.closeStatement(st);
+        }
         
     }
     
-    public Interno carregarCliente(ResultSet rs){
+    public Interno carregarInternoGrid(ResultSet rs){
         Interno i = new Interno();
         try {
-           
+            
             i.setId(rs.getInt("ID"));
             i.setNome(rs.getString("Nome"));
             i.setPerfilUsuario((PerfilUsuario.valueOf(rs.getString("PerfilUsuario"))));
@@ -173,4 +236,28 @@ public class InternosDAO {
         
         return i;
     }
+    public Interno carregarInternoCompleto(ResultSet rs){
+        Interno i = new Interno();
+        try {
+           
+            i.setId(rs.getInt("ID"));
+            i.setCodigo(rs.getInt("Codigo"));
+            i.setNome(rs.getString("Nome"));
+            i.setCpf(rs.getString("CPF"));
+            i.setTelefone(rs.getString("Telefone"));
+            i.setUsuario(rs.getString("Usuario"));
+            i.setSenha(rs.getString("Senha"));
+            i.setPerfilUsuario((PerfilUsuario.valueOf(rs.getString("PerfilUsuario"))));
+            i.setInativo(rs.getString("Inativo").charAt(0));
+            
+             return i;
+            
+        }
+        catch(SQLException e){
+            throw new DBException("Erro: " + e.getMessage());
+        } 
+       
+    }
+    
+    
 }

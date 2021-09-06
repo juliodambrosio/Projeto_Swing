@@ -5,44 +5,37 @@
  */
 package Controllers;
 
-
 import java.util.InputMismatchException;
-import model.entities.Cliente;
-
+import model.entities.Interno;
 
 /**
  *
  * @author JD
  */
-
-public class ClienteController {
-   
-    public boolean cadastrarCliente(Cliente cliente){
-        if(!cliente.getNome().isEmpty() || !cliente.getDdd().isEmpty() ||!cliente.getTelefone().isEmpty()){
-            cliente.cadastrarCliente(cliente);
+public class InternoController {
+    
+    public boolean cadastrarInterno(Interno interno){
+        if(!interno.getNome().isEmpty() || !interno.getUsuario().isEmpty()){
+            interno.cadastrarInterno(interno);
             return true;
-            
         }
         else{
             return false;
         }
         
-        
     }
-    
-        public boolean alterarCliente(Cliente cliente){
-        if(!cliente.getNome().isEmpty() || !cliente.getDdd().isEmpty() ||!cliente.getTelefone().isEmpty()){
-            cliente.alterarCliente(cliente);
+    public boolean alterarInterno(Interno interno){
+        if(!interno.getNome().isEmpty() || !interno.getUsuario().isEmpty()){
+            interno.alterarInterno(interno);
             return true;
-            
         }
-        return false;
+        else{
+            return false;
+        }
         
     }
     
-    
-    
-    public static boolean isCPF(String CPF) {
+     public static boolean isCPF(String CPF) {
         //Codigo disponível no link: https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
         // considera-se erro CPF's formados por uma sequencia de numeros iguais
         if (CPF.equals("00000000000") ||
@@ -103,9 +96,4 @@ public class ClienteController {
             return(CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." +
             CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
         }
-    }
-    
-    
-    
-    
-
+}

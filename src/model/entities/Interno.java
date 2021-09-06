@@ -5,6 +5,7 @@
  */
 package model.entities;
 
+import DAO.InternosDAO;
 import java.util.ArrayList;
 import java.util.List;
 import model.enums.PerfilUsuario;
@@ -148,30 +149,32 @@ public class Interno {
         return true;
     }
     
-    public void cadastrarInterno(){
-        
+    public void cadastrarInterno(Interno interno){
+        new InternosDAO().cadastrarInterno(interno);
     }
     
     public void alterarInterno(Interno interno){
-        
+        new InternosDAO().alterarInterno(interno);
     }
     
     public List<Interno> pesquisarInternos(){
         List<Interno> listaClientes = new ArrayList<>();
-        
+        listaClientes = new InternosDAO().pesquisarInternos();
         return listaClientes;
     }
     
     public Interno pesqusarPorId(Integer id){
         Interno i = new Interno();
+        new InternosDAO().pesqusarPorId(id);
         return i;
     }
     public Interno pesquisarPorCodigo(Integer codigo){
         Interno i = new Interno();
+        new InternosDAO().pesquisarPorCodigo(codigo);
         return i;
     }
     
     public void excluirCliente(Integer id){
-        
+        new InternosDAO().excluirCliente(id);
     }
 }
