@@ -83,15 +83,16 @@ public class InternosDAO {
         
         try{
             conn = ConexaoDB.getConnection();
-            st = conn.prepareStatement("update Internos "
-                    + "set codigo = ?"        + ","
-                    + "set Nome = ?"          + ","
-                    + "set CPF = ?"           + ","
-                    + "set Telefone = ?"      + ","
-                    + "set Usuario  = ?"      + ","
-                    + "set Senha  = ?"        + ","
-                    + "set PerfilUsuario = ?" + ","            
-                    + "set Inativo = ?");
+            st = conn.prepareStatement("update Internos set "
+                    + "codigo = ?"        + ","
+                    + "Nome = ?"          + ","
+                    + "CPF = ?"           + ","
+                    + "Telefone = ?"      + ","
+                    + "Usuario  = ?"      + ","
+                    + "Senha  = ?"        + ","
+                    + "PerfilUsuario = ?" + ","           
+                    + "Inativo = ?"       + " "
+                    + "where id = ?");
             
             if (interno.getCodigo() == null) {
                 st.setNull(1, 0);
@@ -108,6 +109,8 @@ public class InternosDAO {
             st.setString(7, interno.getPerfilUsuario().toString());
             st.setString(8, String.valueOf(interno.getInativo()));
             st.setInt(9, interno.getId());
+            
+            st.executeUpdate();
             
         }
         catch(SQLException e){
@@ -158,10 +161,10 @@ public class InternosDAO {
             st.setInt(1, id);
             rs = st.executeQuery();
             
-            while(rs.next()){
+            if(rs.next()){
                   i = carregarInternoCompleto(rs);
-                  return i;
             }  
+            return i;
         }
         catch(SQLException e){
             throw new DBException("Erro: " + e.getMessage());
@@ -171,7 +174,6 @@ public class InternosDAO {
             ConexaoDB.closeResultSet(rs);
             ConexaoDB.closeStatement(st);
         }
-        return i;
     }
     public Interno pesquisarPorCodigo(Integer codigo){
         Interno i = new Interno();

@@ -10,6 +10,6 @@ package model.enums;
  * @author User
  */
 public enum PerfilUsuario {
-    ADMINSTRADOR,
+    ADMINISTRADOR,
     USUARIO;
 }

@@ -125,6 +125,11 @@ public class CadastroInternos extends javax.swing.JFrame {
         });
 
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,14 +190,19 @@ public class CadastroInternos extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(cmbPerfilUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
                                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(btnLimpar)
+                                                    .addGap(45, 45, 45)
+                                                    .addComponent(btnSalvar))
+                                                .addComponent(cmbPerfilUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(0, 0, Short.MAX_VALUE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,13 +225,7 @@ public class CadastroInternos extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addContainerGap(17, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(btnLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalvar)
-                        .addGap(72, 72, 72))))
+                        .addContainerGap(20, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +308,9 @@ public class CadastroInternos extends javax.swing.JFrame {
                 interno.setUsuario(txtUsuario.getText());
                 interno.setSenha(txtSenha.getText());
                 interno.setPerfilUsuario(PerfilUsuario.valueOf(cmbPerfilUsuario.getSelectedItem().toString()));
-
+                if(checkBoxInativo.isSelected()) interno.setInativo('S');
+                
+               
                 if (ic.cadastrarInterno(interno) == false) {
                     JOptionPane.showMessageDialog(null, "Verifique se preencheu os campos corretamente!!");
                 }
@@ -333,6 +339,8 @@ public class CadastroInternos extends javax.swing.JFrame {
              try {
                 Interno interno  = new Interno();
                 InternoController ic = new InternoController();
+                
+                interno.setId(id);
 
                 if(txtCodigo.getText().isEmpty()){
                     interno.setCodigo(null);
@@ -347,13 +355,14 @@ public class CadastroInternos extends javax.swing.JFrame {
                 interno.setTelefone(txtTelefone.getText());
                 interno.setUsuario(txtUsuario.getText());
                 interno.setSenha(txtSenha.getText());
-                interno.setPerfilUsuario(PerfilUsuario.valueOf(cmbPerfilUsuario.toString()));
+                interno.setPerfilUsuario(PerfilUsuario.valueOf(cmbPerfilUsuario.getSelectedItem().toString()));
+                if(checkBoxInativo.isSelected()) interno.setInativo('S');
 
                 if (ic.alterarInterno(interno) == false) {
                     JOptionPane.showMessageDialog(null, "Verifique se preencheu os campos corretamente!!");
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "Registro Salvo com sucesso!!");
+                    JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!!");
                     txtNome.setText("");
                     txtCPF.setText("");
                     txtCodigo.setText("");
@@ -392,7 +401,13 @@ public class CadastroInternos extends javax.swing.JFrame {
         Interno i = new Interno().pesqusarPorId(idCliente);
         
         this.id = i.getId();
-        txtCodigo.setText(i.getCodigo().toString());
+        if(i.getCodigo() == null){
+             txtCodigo.setText("");
+        }
+        else{
+            txtCodigo.setText(i.getCodigo().toString());
+        }
+        
         txtNome.setText(i.getNome());
         txtCPF.setText(i.getCpf());
         txtDDD.setText(i.getTelefone().substring(0, 2));
@@ -402,12 +417,25 @@ public class CadastroInternos extends javax.swing.JFrame {
         cmbPerfilUsuario.setSelectedItem(i.getPerfilUsuario());
         if(i.getInativo() == ' '){
             checkBoxInativo.setSelected(true);
+            
         }
         
         
         
         
     }//GEN-LAST:event_tblInternosMouseClicked
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        this.id = null;
+        txtNome.setText("");
+        txtCPF.setText("");
+        txtDDD.setText("");
+        txtTelefone.setText("");
+        txtUsuario.setText("");
+        txtSenha.setText("");
+        cmbPerfilUsuario.setSelectedItem("");
+        
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments

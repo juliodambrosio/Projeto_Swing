@@ -164,8 +164,7 @@ public class Interno {
     }
     
     public Interno pesqusarPorId(Integer id){
-        Interno i = new Interno();
-        new InternosDAO().pesqusarPorId(id);
+        Interno i = i = new InternosDAO().pesqusarPorId(id);
         return i;
     }
     public Interno pesquisarPorCodigo(Integer codigo){
