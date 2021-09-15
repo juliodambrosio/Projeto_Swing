@@ -240,7 +240,9 @@ public class CadastroClientes extends javax.swing.JFrame {
             cliente.setCpf(txtCPF.getText());
             cliente.setDdd(txtDDD.getText());
             cliente.setTelefone(txtTelefone.getText());
-
+            cliente.setEmail(txtEmail.getText());
+            cliente.setOBS(txtOBS.getText());
+            
             if (cc.cadastrarCliente(cliente) == false) {
                 JOptionPane.showMessageDialog(null, "Verifique se preencheu os campos corretamente!!");
             }
@@ -278,6 +280,8 @@ public class CadastroClientes extends javax.swing.JFrame {
                 cliente.setCpf(txtCPF.getText());
                 cliente.setDdd(txtDDD.getText());
                 cliente.setTelefone(txtTelefone.getText());
+                cliente.setEmail(txtEmail.getText());
+                cliente.setOBS(txtOBS.getText());
                 
                 if (cc.alterarCliente(cliente) == false) {
                     JOptionPane.showMessageDialog(null, "Verifique se preencheu os campos corretamente!!");

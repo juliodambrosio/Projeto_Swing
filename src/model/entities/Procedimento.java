@@ -5,14 +5,18 @@
  */
 package model.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+import DAO.ProcedimentosDAO;
+
 /**
  *
  * @author JD
  */
 public class Procedimento {
     
-    private int id;
-    private int codigo;
+    private Integer id;
+    private Integer codigo;
     private String descricao;
     private String detalhes;
     private Double valor;
@@ -22,7 +26,7 @@ public class Procedimento {
         
     }
 
-    public Procedimento(int id, int codigo, String descricao, String detalhes, Double valor, Double duracao) {
+    public Procedimento(Integer id, Integer codigo, String descricao, String detalhes, Double valor, Double duracao) {
         this.id = id;
         this.codigo = codigo;
         this.descricao = descricao;
@@ -31,46 +35,39 @@ public class Procedimento {
         this.duracao = duracao;
     }
 
-    public int getid() {
+    public Integer getid() {
         return id;
     }
 
-    public void setid(int id) {
+    public void setid(Integer id) {
         this.id = id;
     }
 
-    public int getcodigo() {
-        return codigo;
-    }
-
-    public void setcodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getdescricao() {
+    public String getDescricao() {
         return descricao;
     }
 
-    public void setdescricao(String descricao) {
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    public String getdetalhes() {
+    public String getDetalhes() {
         return detalhes;
     }
 
-    public void setdetalhes(String detalhes) {
+    public void setDetalhes(String detalhes) {
         this.detalhes = detalhes;
     }
 
-    public Double getvalorTotal() {
+    public Double getValor() {
         return valor;
     }
 
-    public void setvalorTotal(Double valor) {
+    public void setValor(Double valor) {
         this.valor = valor;
     }
 
+    
     public Double getDuracao() {
         return duracao;
     }
@@ -103,5 +100,29 @@ public class Procedimento {
         }
         return true;
     }
-
+    
+    
+    public void cadastrarProcedimento(Procedimento procedimento){
+        
+    }
+    
+    public void alterarProcedimento(Procedimento procedimento){
+        
+    }
+    
+    public void excluirProcedimento(int id){
+        
+    }
+    
+    public List<Procedimento> pesquisarProcedimentos(){
+        List<Procedimento> listaProcedimentos = new ArrayList<>();
+        listaProcedimentos = new ProcedimentosDAO().pesquisarProcedimentos();
+        return listaProcedimentos;
+    }
+    
+    public Procedimento pesquisarPorId(int id){
+        Procedimento p = null;
+        return p;
+    }
+    
 }

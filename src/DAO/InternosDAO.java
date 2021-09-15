@@ -209,7 +209,7 @@ public class InternosDAO {
             conn = ConexaoDB.getConnection();
             st = conn.prepareStatement("Delete from Internos where id = ?");
             st.setInt(1, id);
-            st.executeQuery();
+            st.executeUpdate();
             
         }
         catch(SQLException e){

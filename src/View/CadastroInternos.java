@@ -74,6 +74,7 @@ public class CadastroInternos extends javax.swing.JFrame {
         checkBoxInativo = new javax.swing.JCheckBox();
         jLabel9 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -159,6 +160,13 @@ public class CadastroInternos extends javax.swing.JFrame {
 
         jLabel9.setText("Codigo");
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,12 +204,16 @@ public class CadastroInternos extends javax.swing.JFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(10, 10, 10)
+                                                    .addComponent(cmbPerfilUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(layout.createSequentialGroup()
                                                     .addComponent(btnLimpar)
                                                     .addGap(45, 45, 45)
-                                                    .addComponent(btnSalvar))
-                                                .addComponent(cmbPerfilUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(btnSalvar)
+                                                    .addGap(37, 37, 37)
+                                                    .addComponent(btnExcluir)))
                                             .addGap(0, 0, Short.MAX_VALUE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -276,7 +288,8 @@ public class CadastroInternos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSalvar)
-                            .addComponent(btnLimpar))))
+                            .addComponent(btnLimpar)
+                            .addComponent(btnExcluir))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -437,6 +450,41 @@ public class CadastroInternos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnLimparActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+       
+        if(tblInternos.getSelectedRow() != -1){
+            Integer idinterno = (int) tblInternos.getValueAt(tblInternos.getSelectedRow(), 0);  
+            int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir intertno selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if(confirm == JOptionPane.YES_OPTION){
+             try {
+                 new Interno().excluirCliente(idinterno);
+                 JOptionPane.showMessageDialog(null, "Registro apagado com sucesso !!");
+             } 
+             catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Erro ao deletar Interno: " + e.getMessage());
+             } 
+             finally {
+                 carregarTabela();
+             }
+                       
+            }
+            else{
+                carregarTabela();
+            }
+            
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir ");
+        }
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    public void criptografarSenha(String senha){
+        
+        
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -473,6 +521,7 @@ public class CadastroInternos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox checkBoxInativo;

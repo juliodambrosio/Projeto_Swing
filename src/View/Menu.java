@@ -52,6 +52,11 @@ public class Menu extends javax.swing.JFrame {
         btnAgendamentos.setText("Agendamentos");
 
         btnProcedimentos.setText("Procedimentos");
+        btnProcedimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcedimentosActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Sair");
 
@@ -105,6 +110,12 @@ public class Menu extends javax.swing.JFrame {
     private void btnInternosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInternosActionPerformed
        new CadastroInternos().setVisible(true);
     }//GEN-LAST:event_btnInternosActionPerformed
+
+    private void btnProcedimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcedimentosActionPerformed
+     
+        new PesquisarProcedimentos().setVisible(true);
+        
+    }//GEN-LAST:event_btnProcedimentosActionPerformed
 
     /**
      * @param args the command line arguments
