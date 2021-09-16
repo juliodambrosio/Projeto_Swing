@@ -173,14 +173,14 @@ public class PesquisarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        new CadastroClientes(null).setVisible(true);
+        new CadastroNovoClientes(null).setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
     
    public void mouseClicked(MouseEvent event) {
         if (event.getClickCount() == 2 && event.getButton() == MouseEvent.BUTTON1) {
             Cliente c = new Cliente();
             c.setId((int)tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));
-            new CadastroClientes(c.getId()).setVisible(true);
+            new CadastroNovoClientes(c.getId()).setVisible(true);
         }
     }
     

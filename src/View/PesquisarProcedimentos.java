@@ -5,7 +5,9 @@
  */
 package View;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.entities.Interno;
 import model.entities.Procedimento;
 
 /**
@@ -60,6 +62,11 @@ public final class PesquisarProcedimentos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnVoltar.setLabel("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         btnPesquisar.setLabel("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +78,11 @@ public final class PesquisarProcedimentos extends javax.swing.JFrame {
         btnNovo.setLabel("Novo");
 
         btnExcluir.setLabel("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         tblProcedimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,6 +144,39 @@ public final class PesquisarProcedimentos extends javax.swing.JFrame {
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         carregarTabela();
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if(tblProcedimentos.getSelectedRow() != -1){
+            Integer idProcedimento = (int) tblProcedimentos.getValueAt(tblProcedimentos.getSelectedRow(), 0);  
+            int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o procedimento selecionado?", "Confirmação",
+                    JOptionPane.YES_NO_OPTION);
+            if(confirm == JOptionPane.YES_OPTION){
+             try {
+                 new Procedimento().excluirProcedimento(idProcedimento);
+                 JOptionPane.showMessageDialog(null, "Registro apagado com sucesso !!");
+             } 
+             catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Erro ao deletar Interno: " + e.getMessage());
+             } 
+             finally {
+                 carregarTabela();
+             }
+                       
+            }
+            else{
+                carregarTabela();
+            }
+            
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir ");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments

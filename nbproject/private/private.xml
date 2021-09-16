@@ -6,10 +6,12 @@
             <file>file:/C:/Projects/JAVA/Projeto_Swing/src/Controllers/InternoController.java</file>
             <file>file:/C:/Projects/JAVA/Projeto_Swing/src/model/entities/Procedimento.java</file>
             <file>file:/C:/Projects/JAVA/Projeto_Swing/src/model/entities/Cliente.java</file>
-            <file>file:/C:/Projects/JAVA/Projeto_Swing/src/model/entities/Interno.java</file>
-            <file>file:/C:/Projects/JAVA/Projeto_Swing/src/DAO/InternosDAO.java</file>
+            <file>file:/C:/Projects/JAVA/Projeto_Swing/src/View/CadastroNovoProcedimento.java</file>
+            <file>file:/C:/Projects/JAVA/Projeto_Swing/src/Controllers/ProcedimentoController.java</file>
+            <file>file:/C:/Projects/JAVA/Projeto_Swing/src/View/Menu.java</file>
+            <file>file:/C:/Projects/JAVA/Projeto_Swing/src/View/CadastroInternos.java</file>
+            <file>file:/C:/Projects/JAVA/Projeto_Swing/src/DAO/ProcedimentosDAO.java</file>
             <file>file:/C:/Projects/JAVA/Projeto_Swing/src/View/PesquisarProcedimentos.java</file>
-            <file>file:/C:/Projects/JAVA/Projeto_Swing/src/View/PesquisarCliente.java</file>
         </group>
     </open-files>
 </project-private>
