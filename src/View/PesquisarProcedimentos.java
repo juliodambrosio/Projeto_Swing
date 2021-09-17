@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.entities.Interno;
@@ -100,6 +101,11 @@ public final class PesquisarProcedimentos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblProcedimentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProcedimentosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProcedimentos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,6 +183,14 @@ public final class PesquisarProcedimentos extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void tblProcedimentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProcedimentosMouseClicked
+        if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+            Integer idProcedimento = (int)tblProcedimentos.getValueAt(tblProcedimentos.getSelectedRow(), 0);
+            new CadastroNovoProcedimento(idProcedimento).setVisible(true);
+            
+        }
+    }//GEN-LAST:event_tblProcedimentosMouseClicked
 
     /**
      * @param args the command line arguments

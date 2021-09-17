@@ -16,16 +16,23 @@ public class CadastroNovoProcedimento extends javax.swing.JFrame {
     /**
      * Creates new form CadastrarNovoProcedimento
      */
-    private Integer id;
+    private Integer id = null;
     
     public CadastroNovoProcedimento(Integer id) {
         initComponents();
+        if(id != null){
+            carregarProcedimento(id);
+        }
         
     }
-
-    public void carregarProcedimento(){
-        Procedimento p = new Procedimento().pesquisarPorId(this.id);
-        
+ 
+     public final void carregarProcedimento(Integer id){
+        this.id = id;
+        Procedimento p = new Procedimento().pesquisarPorId(id);
+        txtDescricao.setText(p.getDescricao());
+        txtDetalhes.setText(p.getDetalhes());
+        txtValor.setText(p.getValor().toString());
+        txtDuracao.setText(p.getDuracao().toString());
         
     }
     
@@ -166,7 +173,7 @@ public class CadastroNovoProcedimento extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroNovoProcedimento().setVisible(true);
+                new CadastroNovoProcedimento(null).setVisible(true);
             }
         });
     }

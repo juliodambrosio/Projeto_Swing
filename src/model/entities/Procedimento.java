@@ -16,7 +16,6 @@ import DAO.ProcedimentosDAO;
 public class Procedimento {
     
     private Integer id;
-    private Integer codigo;
     private String descricao;
     private String detalhes;
     private Double valor;
@@ -26,9 +25,8 @@ public class Procedimento {
         
     }
 
-    public Procedimento(Integer id, Integer codigo, String descricao, String detalhes, Double valor, Double duracao) {
+    public Procedimento(Integer id, String descricao, String detalhes, Double valor, Double duracao) {
         this.id = id;
-        this.codigo = codigo;
         this.descricao = descricao;
         this.detalhes = detalhes;
         this.valor = valor;
@@ -103,15 +101,15 @@ public class Procedimento {
     
     
     public void cadastrarProcedimento(Procedimento procedimento){
-        
+          new Procedimento().cadastrarProcedimento(procedimento);
     }
     
     public void alterarProcedimento(Procedimento procedimento){
-        
+        new Procedimento().alterarProcedimento(procedimento);
     }
     
     public void excluirProcedimento(int id){
-        
+        new Procedimento().excluirProcedimento(id);
     }
     
     public List<Procedimento> pesquisarProcedimentos(){
@@ -121,7 +119,7 @@ public class Procedimento {
     }
     
     public Procedimento pesquisarPorId(int id){
-        Procedimento p = null;
+        Procedimento p = new Procedimento().pesquisarPorId(id);
         return p;
     }
     
