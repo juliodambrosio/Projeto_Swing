@@ -5,6 +5,8 @@
  */
 package View;
 
+import Controllers.ProcedimentoController;
+import javax.swing.JOptionPane;
 import model.entities.Procedimento;
 
 /**
@@ -27,7 +29,7 @@ public class CadastroNovoProcedimento extends javax.swing.JFrame {
     }
  
      public final void carregarProcedimento(Integer id){
-        this.id = id;
+         this.id = id;
         Procedimento p = new Procedimento().pesquisarPorId(id);
         txtDescricao.setText(p.getDescricao());
         txtDetalhes.setText(p.getDetalhes());
@@ -61,9 +63,14 @@ public class CadastroNovoProcedimento extends javax.swing.JFrame {
 
         jLabel3.setText("Detalhes");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
 
@@ -141,6 +148,59 @@ public class CadastroNovoProcedimento extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+       
+        if(id == null){
+            try {
+                Procedimento p = new Procedimento();
+                ProcedimentoController pc = new ProcedimentoController();
+
+                p.setDescricao(txtDescricao.getText());
+                p.setDetalhes(txtDetalhes.getText());
+                p.setDuracao(Double.parseDouble(txtDuracao.getText()));
+                p.setValor(Double.parseDouble(txtValor.getText()));
+
+                if (pc.cadastrarProcedimento(p)== true) {
+                    JOptionPane.showMessageDialog(null, "Registro Salvo com sucesso!!");
+                    this.dispose();
+                } 
+                else {
+                    JOptionPane.showMessageDialog(null, "Verifique os campos em branco !!");
+                }
+            } 
+            catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+           
+        }
+        
+        else{
+            try {
+                Procedimento p = new Procedimento();
+                ProcedimentoController pc = new ProcedimentoController();
+                p.setid(id);
+                p.setDescricao(txtDescricao.getText());
+                p.setDetalhes(txtDetalhes.getText());
+                p.setDuracao(Double.parseDouble(txtDuracao.getText()));
+                p.setValor(Double.parseDouble(txtValor.getText()));
+                
+                if (pc.alterarProcedimento(p) == true) {
+                    JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!!");
+                    this.dispose();
+                    
+                } 
+                else {
+                    JOptionPane.showMessageDialog(null, "Verifique os campos em branco !!");
+                }
+            }
+            catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+        }
+        
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

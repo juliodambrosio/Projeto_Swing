@@ -13,7 +13,7 @@ import model.entities.Procedimento;
  */
 public class ProcedimentoController {
     
-    public boolean cadastrarInterno(Procedimento procedimento){
+    public boolean cadastrarProcedimento(Procedimento procedimento){
         if(!procedimento.getDescricao().isEmpty() || procedimento.getValor() != null ){
             procedimento.cadastrarProcedimento(procedimento);
             return true;
@@ -23,7 +23,7 @@ public class ProcedimentoController {
         }
         
     }
-    public boolean alterarInterno(Procedimento procedimento){
+    public boolean alterarProcedimento(Procedimento procedimento){
         if(!procedimento.getDescricao().isEmpty() || procedimento.getValor() != null ){
             procedimento.alterarProcedimento(procedimento);
             return true;

@@ -76,7 +76,8 @@ public class ProcedimentosDAO {
            st.setString(1, procedimento.getDescricao());
            st.setString(2, procedimento.getDetalhes());
            st.setDouble(3, procedimento.getValor());
-           st.setDouble(4, procedimento.getDuracao());   
+           st.setDouble(4, procedimento.getDuracao());
+           st.setInt(5, procedimento.getid());
             
             st.executeUpdate();
             
@@ -119,19 +120,18 @@ public class ProcedimentosDAO {
     }
      
     public Procedimento pesqusarPorId(Integer id){
-        Procedimento p = new Procedimento();
         PreparedStatement st = null;
         ResultSet rs = null;
         try{
             conn = ConexaoDB.getConnection();
-            st = conn.prepareStatement("Select ID,Codigo,Nome,CPF,Telefone,Usuario,Senha,PerfilUsuario,Inativo "
-                    + "from Internos where ID = ?");
+            st = conn.prepareStatement("Select ID,Descricao,Detalhes,Valor,Duracao from Procedimentos where ID = ?");
             st.setInt(1, id);
             rs = st.executeQuery();
             
+            Procedimento p = new Procedimento();
             if(rs.next()){
                   p = carregarProcedimentoGrid(rs);
-            }  
+            }
             return p;
         }
         catch(SQLException e){
@@ -165,6 +165,8 @@ public class ProcedimentosDAO {
     
     public Procedimento carregarProcedimentoGrid(ResultSet rs){
         Procedimento p = new Procedimento();
+        
+        //Select ID,Descricao,Detalhes,Valor,Duracao from Procedimentos where ID = ?"
         try {
             p.setid(rs.getInt("ID"));
             p.setDescricao(rs.getString("Descricao"));
@@ -175,7 +177,6 @@ public class ProcedimentosDAO {
         catch(SQLException e){
             throw new DBException("Erro: " + e.getMessage());
         }
-
         
         return p;
     }

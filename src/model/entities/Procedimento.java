@@ -101,15 +101,15 @@ public class Procedimento {
     
     
     public void cadastrarProcedimento(Procedimento procedimento){
-          new Procedimento().cadastrarProcedimento(procedimento);
+          new ProcedimentosDAO().cadastrarProcedimento(procedimento);
     }
     
     public void alterarProcedimento(Procedimento procedimento){
-        new Procedimento().alterarProcedimento(procedimento);
+        new ProcedimentosDAO().alterarProcedimento(procedimento);
     }
     
     public void excluirProcedimento(int id){
-        new Procedimento().excluirProcedimento(id);
+        new ProcedimentosDAO().excluirProcedimento(id);
     }
     
     public List<Procedimento> pesquisarProcedimentos(){
@@ -119,7 +119,7 @@ public class Procedimento {
     }
     
     public Procedimento pesquisarPorId(int id){
-        Procedimento p = new Procedimento().pesquisarPorId(id);
+        Procedimento p = new ProcedimentosDAO().pesqusarPorId(id);
         return p;
     }
     
