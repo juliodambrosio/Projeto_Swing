@@ -50,6 +50,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         btnAgendamentos.setText("Agendamentos");
+        btnAgendamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgendamentosActionPerformed(evt);
+            }
+        });
 
         btnProcedimentos.setText("Procedimentos");
         btnProcedimentos.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +121,11 @@ public class Menu extends javax.swing.JFrame {
         new PesquisarProcedimentos().setVisible(true);
         
     }//GEN-LAST:event_btnProcedimentosActionPerformed
+
+    private void btnAgendamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendamentosActionPerformed
+      new Agendamentos().setVisible(true);
+        
+    }//GEN-LAST:event_btnAgendamentosActionPerformed
 
     /**
      * @param args the command line arguments

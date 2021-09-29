@@ -25,14 +25,14 @@ public class Agendamento {
 
     }
 
-    public Agendamento(int id, Date DataHoraMarcada, Cliente cliente, Interno interno, Double valorTotal, Double duracaoTotal) {
+    public Agendamento(int id, Date DataHoraMarcada, Cliente cliente, Interno interno, Double valorTotal, Double duracaoTotal, char cancelado) {
         this.id = id;
         this.DataHoraMarcada = DataHoraMarcada;
         this.cliente = cliente;
         this.interno = interno;
         this.valorTotal = valorTotal;
         this.duracaoTotal = duracaoTotal;
-        this.Cancelado = 'N';
+        this.Cancelado = cancelado;
     }
 
     public int getId() {
