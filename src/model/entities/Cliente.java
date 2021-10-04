@@ -147,7 +147,7 @@ public class Cliente {
     
      public Cliente pesquisarClientePorId(Integer id){
         Cliente cliente = new Cliente();
-        cliente = new ClientesDAO().pesquisarPorId(codigo);
+        cliente = new ClientesDAO().pesquisarPorId(id);
         return cliente;
     }
     

@@ -6,6 +6,9 @@
 
 package View;
 
+import javax.swing.table.DefaultTableModel;
+import model.entities.Agendamento;
+
 /**
  *
  * @author User
@@ -27,7 +30,7 @@ public class Agendamentos extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAgendamentos = new javax.swing.JTable();
         dtInicial = new com.toedter.calendar.JDateChooser();
         dtFinal = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
@@ -40,7 +43,7 @@ public class Agendamentos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAgendamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -56,11 +59,11 @@ public class Agendamentos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblAgendamentos);
 
-        dtInicial.setDateFormatString("dd-MM-yyyy");
+        dtInicial.setDateFormatString("dd/MM/yyyy");
 
-        dtFinal.setDateFormatString("dd-MM-yyyy");
+        dtFinal.setDateFormatString("dd/MM/yyyy");
 
         jLabel1.setText("Data Inicial");
 
@@ -69,6 +72,11 @@ public class Agendamentos extends javax.swing.JFrame {
         jButton1.setText("Excluir");
 
         jButton2.setText("Pesquisar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Novo");
 
@@ -137,6 +145,32 @@ public class Agendamentos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      
+        carregarTabela();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+
+        public void carregarTabela(){
+        
+        DefaultTableModel tbl = (DefaultTableModel) tblAgendamentos.getModel();
+        tbl.setNumRows(0);
+        Agendamento agendamento = new Agendamento();
+        
+        agendamento.pesquisarAgendamentos().forEach(c -> {
+            tbl.addRow(new Object[]{
+                c.getId(),
+                c.getCliente().getId(),
+                c.getInterno().getId(),
+                c.getValorTotal(),
+                c.getCancelado(),
+                c.getDuracaoTotal()
+            });
+        });
+    
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -182,8 +216,8 @@ public class Agendamentos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblAgendamentos;
     // End of variables declaration//GEN-END:variables
 
 }

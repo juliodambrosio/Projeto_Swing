@@ -112,11 +112,13 @@ public class AgendamentosDAO {
              rs = st.executeQuery("Select ID,DataHoraMarcada,Cliente,Interno,ValorTotal,Cancelado,DuracaoTotal from Agendamentos");
              
              while(rs.next()){
-                 Agendamento i = carregarAgendamentoGrid(rs);
-                 listaAgendamentos.add(i);
-             } 
+                 Agendamento a = carregarAgendamentoGrid(rs);
+                 listaAgendamentos.add(a);
+             }
              return listaAgendamentos;
+             
         }
+        
         catch(SQLException e){
             throw new DBException("Erro: "+ e.getMessage());
         }
@@ -192,7 +194,7 @@ public class AgendamentosDAO {
             a.setInterno(i);
             
             a.setValorTotal(rs.getDouble("ValorTotal"));
-            a.setCancelado((rs.getString("Cancelado").charAt(1)));
+            a.setCancelado((rs.getString("Cancelado").charAt(0)));
             a.setDuracaoTotal(rs.getDouble("DuracaoTotal"));
             
         }

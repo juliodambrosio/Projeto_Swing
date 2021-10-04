@@ -5,7 +5,10 @@
  */
 package model.entities;
 
+import DAO.AgendamentosDAO;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -117,6 +120,27 @@ public class Agendamento {
         return true;
     }
 
-   
+    public void cadastrarAgendamento(Agendamento agendamento){
+        new AgendamentosDAO().cadastrarAgendamento(agendamento);
+    }
+    
+    public void alterarAgendamento(Agendamento agendamento){
+        new AgendamentosDAO().alterarAgendamento(agendamento);
+    }
+    
+    public void excluirAgendamento(int id){
+        new AgendamentosDAO().excluirAgendamento(id);
+    }
+    
+    public List<Agendamento> pesquisarAgendamentos(){
+        List<Agendamento> listaAgendamentos = new ArrayList<>();
+        listaAgendamentos = new AgendamentosDAO().pesquisarAgendamentos();
+        return listaAgendamentos;
+    }
+    
+    public Agendamento pesquisarAgendamentoPorID(int id){
+        return new AgendamentosDAO().pesqusarPorId(id);
+    }
+    
     
 }
