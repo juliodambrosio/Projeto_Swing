@@ -6,6 +6,7 @@
 
 package View;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.entities.Agendamento;
 
@@ -18,6 +19,7 @@ public class Agendamentos extends javax.swing.JFrame {
     /** Creates new form Agendamentos */
     public Agendamentos() {
         initComponents();
+        
     }
 
     /** This method is called from within the constructor to
@@ -36,7 +38,7 @@ public class Agendamentos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -71,10 +73,10 @@ public class Agendamentos extends javax.swing.JFrame {
 
         jButton1.setText("Excluir");
 
-        jButton2.setText("Pesquisar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPesquisarActionPerformed(evt);
             }
         });
 
@@ -112,7 +114,7 @@ public class Agendamentos extends javax.swing.JFrame {
                         .addGap(69, 69, 69)
                         .addComponent(jButton1)
                         .addGap(133, 133, 133)
-                        .addComponent(jButton2)
+                        .addComponent(btnPesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addGap(74, 74, 74))))
@@ -137,7 +139,7 @@ public class Agendamentos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(btnPesquisar)
                     .addComponent(jButton3))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -145,11 +147,21 @@ public class Agendamentos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
       
-        carregarTabela();
+        try{
+            carregarTabela();
+        }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
+        }
+        
+        if(tblAgendamentos.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum registro encontrado!!");
+       }
+        
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
 
         public void carregarTabela(){
@@ -161,6 +173,7 @@ public class Agendamentos extends javax.swing.JFrame {
         agendamento.pesquisarAgendamentos().forEach(c -> {
             tbl.addRow(new Object[]{
                 c.getId(),
+                c.getDataHoraMarcada(),         
                 c.getCliente().getId(),
                 c.getInterno().getId(),
                 c.getValorTotal(),
@@ -207,10 +220,10 @@ public class Agendamentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPesquisar;
     private com.toedter.calendar.JDateChooser dtFinal;
     private com.toedter.calendar.JDateChooser dtInicial;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

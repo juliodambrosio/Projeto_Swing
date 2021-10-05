@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 import model.entities.Agendamento;
 import model.entities.Cliente;
 import model.entities.Interno;
@@ -194,15 +195,22 @@ public class AgendamentosDAO {
             a.setInterno(i);
             
             a.setValorTotal(rs.getDouble("ValorTotal"));
-            a.setCancelado((rs.getString("Cancelado").charAt(0)));
+            if(rs.getString("Cancelado") == null){
+                a.setCancelado(' ');
+            }
+            else{
+                a.setCancelado(rs.getString("Cancelado").charAt(0));
+            }
+            
             a.setDuracaoTotal(rs.getDouble("DuracaoTotal"));
             
+            return a;
         }
         catch(SQLException e){
             throw new DBException("Erro: " + e.getMessage());
         }
         
-        return a;
+        
     }
     
     
