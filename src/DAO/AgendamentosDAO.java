@@ -110,7 +110,9 @@ public class AgendamentosDAO {
         try{
             conn = ConexaoDB.getConnection();
              st = conn.createStatement();
-             rs = st.executeQuery("Select ID,DataHoraMarcada,Cliente,Interno,ValorTotal,Cancelado,DuracaoTotal from Agendamentos");
+             rs = st.executeQuery("Select ag.ID,ag.DataHoraMarcada,ag.Cliente,cli.Nome as ClienteNome,ag.Interno,ag.ValorTotal,ag.Cancelado,"
+                     + "ag.DuracaoTotal from Agendamentos ag" + " "
+                     + "inner join Clientes as cli on cli.ID = ag.Cliente");
              
              while(rs.next()){
                  Agendamento a = carregarAgendamentoGrid(rs);
@@ -157,6 +159,32 @@ public class AgendamentosDAO {
             ConexaoDB.closeStatement(st);
         }
     }
+    
+    public Double valorTotalDia(String dataInicial, String dataFinal){
+        double valorTotalDia = 0.00;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            conn = ConexaoDB.getConnection();
+            st = conn.prepareStatement("select sum(ValorTotal) as ValorTotal from Agendamentos"  + " "
+                    + "where CONVERT(date,DataHoraMarcada,103)" + " "
+                    + "between" + " "
+                    + "CONVERT(date,'"+dataInicial+"',103) and" + " "
+                    + "CONVERT(date,'"+dataFinal+",103)"  + " "
+                    + "and Cancelado is null");
+            rs = st.executeQuery();
+            if(rs.next()){
+              valorTotalDia = rs.getDouble("ValorTotal");
+            }
+            return valorTotalDia;
+            
+        }
+        catch(SQLException e){
+            throw new DBException("Erro ao calcular o total");
+        }
+        
+    }
+    
     public void excluirAgendamento(Integer id){
         
         PreparedStatement st = null;
@@ -187,6 +215,9 @@ public class AgendamentosDAO {
             
             Cliente c = new Cliente();
             c.setId(rs.getInt("Cliente"));
+            
+            
+            c.setNome(rs.getString("ClienteNome"));
             
             Interno i = new Interno();
             i.setId(rs.getInt("Interno"));

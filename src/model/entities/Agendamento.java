@@ -142,5 +142,7 @@ public class Agendamento {
         return new AgendamentosDAO().pesqusarPorId(id);
     }
     
-    
+    public Double valorTotalDia(String dataInicial, String dataFinal){
+        return  new AgendamentosDAO().valorTotalDia(dataInicial, dataFinal);   
+    }
 }
