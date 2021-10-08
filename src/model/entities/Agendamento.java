@@ -137,6 +137,12 @@ public class Agendamento {
         listaAgendamentos = new AgendamentosDAO().pesquisarAgendamentos();
         return listaAgendamentos;
     }
+    //
+     public List<Agendamento> pesquisarAgendamentosComFiltro(String dataInicial, String dataFinal){
+        List<Agendamento> listaAgendamentos = new ArrayList<>();
+        listaAgendamentos = new AgendamentosDAO().pesquisarAgendamentosComFiltro(dataInicial, dataFinal);
+        return listaAgendamentos;
+    }
     
     public Agendamento pesquisarAgendamentoPorID(int id){
         return new AgendamentosDAO().pesqusarPorId(id);

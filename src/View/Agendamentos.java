@@ -6,19 +6,30 @@
 
 package View;
 
+import com.toedter.calendar.JDateChooser;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.entities.Agendamento;
 
 /**
  *
- * @author User
+ * @author JD
  */
 public class Agendamentos extends javax.swing.JFrame {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    
 
     /** Creates new form Agendamentos */
     public Agendamentos() {
         initComponents();
+        Calendar c = Calendar.getInstance();
+        dtInicial.setCalendar(c);
+        dtFinal.setCalendar(c); 
+
         
     }
 
@@ -101,6 +112,7 @@ public class Agendamentos extends javax.swing.JFrame {
 
         jLabel3.setText("Valor Total (Dia)");
 
+        txtValorTotal.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtValorTotal.setEnabled(false);
 
         dtFinal.setDateFormatString("dd/MM/yyyy");
@@ -205,7 +217,7 @@ public class Agendamentos extends javax.swing.JFrame {
         tbl.setNumRows(0);
         Agendamento agendamento = new Agendamento();
         
-        agendamento.pesquisarAgendamentos().forEach(c -> {
+        agendamento.pesquisarAgendamentosComFiltro(sdf.format(dtInicial.getDate()),sdf.format(dtFinal.getDate())).forEach(c -> {
             tbl.addRow(new Object[]{
                 c.getId(),
                 c.getDataHoraMarcada(),         
@@ -233,8 +245,11 @@ public class Agendamentos extends javax.swing.JFrame {
 //        catch (NumberFormatException e) {
 //            System.out.println("Erro ao somar: " + e.getMessage());
 //        }
+          
+          String dataInicial = String.valueOf(sdf.format(dtInicial.getDate()));
+          String dataFinal = String.valueOf(sdf.format(dtFinal.getDate()));
 
-          Double somaTotal = new Agendamento().valorTotalDia(dtInicial.toString(), dtFinal.toString());
+          Double somaTotal = new Agendamento().valorTotalDia(dataInicial,dataFinal);
           txtValorTotal.setText(String.valueOf(somaTotal));
 
     }

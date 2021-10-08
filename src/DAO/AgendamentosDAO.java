@@ -133,6 +133,44 @@ public class AgendamentosDAO {
         
         
     }
+    
+    public List<Agendamento> pesquisarAgendamentosComFiltro(String dataInicial, String dataFinal){
+        List<Agendamento> listaAgendamentos = new ArrayList<>();
+        PreparedStatement st =null;
+        ResultSet rs = null;
+         
+        try{
+            conn = ConexaoDB.getConnection();
+             st = conn.prepareStatement("Select ag.ID,ag.DataHoraMarcada,ag.Cliente,cli.Nome as ClienteNome,ag.Interno,ag.ValorTotal,ag.Cancelado,"
+                     + "ag.DuracaoTotal from Agendamentos ag" + " "
+                     + "inner join Clientes as cli on cli.ID = ag.Cliente" + " "
+                     + "where convert(date,ag.DataHoraMarcada,103)" + " "
+                     + "between" + " "
+                     + "convert(date,'"+dataInicial+"',103)" + " "
+                     + "and" + " "
+                     + "convert(date,'"+dataFinal+"',103)");
+             
+             rs = st.executeQuery();             
+             
+             while(rs.next()){
+                 Agendamento a = carregarAgendamentoGrid(rs);
+                 listaAgendamentos.add(a);
+             }
+             return listaAgendamentos;
+             
+        }
+        
+        catch(SQLException e){
+            throw new DBException("Erro: "+ e.getMessage());
+        }
+        finally{
+            ConexaoDB.closeConnection();
+            ConexaoDB.closeResultSet(rs);
+            ConexaoDB.closeStatement(st);
+        }
+        
+        
+    }
      
     public Agendamento pesqusarPorId(Integer id){
         PreparedStatement st = null;
@@ -170,7 +208,7 @@ public class AgendamentosDAO {
                     + "where CONVERT(date,DataHoraMarcada,103)" + " "
                     + "between" + " "
                     + "CONVERT(date,'"+dataInicial+"',103) and" + " "
-                    + "CONVERT(date,'"+dataFinal+",103)"  + " "
+                    + "CONVERT(date,'"+dataFinal+"',103)"  + " "
                     + "and Cancelado is null");
             rs = st.executeQuery();
             if(rs.next()){
@@ -180,7 +218,7 @@ public class AgendamentosDAO {
             
         }
         catch(SQLException e){
-            throw new DBException("Erro ao calcular o total");
+            throw new DBException("Erro ao calcular o total" + e.getMessage());
         }
         
     }
