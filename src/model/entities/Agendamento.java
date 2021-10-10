@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class Agendamento {
 
-    private int id;
+    private Integer id;
     private Date DataHoraMarcada;
     private Cliente cliente;
-    private Interno interno;
+    private Interno Integererno;
     private Double valorTotal;
     private Double duracaoTotal;
     private char Cancelado;
@@ -28,21 +28,21 @@ public class Agendamento {
 
     }
 
-    public Agendamento(int id, Date DataHoraMarcada, Cliente cliente, Interno interno, Double valorTotal, Double duracaoTotal, char cancelado) {
+    public Agendamento(Integer id, Date DataHoraMarcada, Cliente cliente, Interno Integererno, Double valorTotal, Double duracaoTotal, char cancelado) {
         this.id = id;
         this.DataHoraMarcada = DataHoraMarcada;
         this.cliente = cliente;
-        this.interno = interno;
+        this.Integererno = Integererno;
         this.valorTotal = valorTotal;
         this.duracaoTotal = duracaoTotal;
         this.Cancelado = cancelado;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,11 +63,11 @@ public class Agendamento {
     }
 
     public Interno getInterno() {
-        return interno;
+        return Integererno;
     }
 
-    public void setInterno(Interno interno) {
-        this.interno = interno;
+    public void setInterno(Interno Integererno) {
+        this.Integererno = Integererno;
     }
 
     public Double getValorTotal() {
@@ -97,7 +97,7 @@ public class Agendamento {
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        Integer hash = 3;
         hash = 17 * hash + this.id;
         return hash;
     }
@@ -128,7 +128,7 @@ public class Agendamento {
         new AgendamentosDAO().alterarAgendamento(agendamento);
     }
     
-    public void excluirAgendamento(int id){
+    public void excluirAgendamento(Integer id){
         new AgendamentosDAO().excluirAgendamento(id);
     }
     
@@ -144,7 +144,7 @@ public class Agendamento {
         return listaAgendamentos;
     }
     
-    public Agendamento pesquisarAgendamentoPorID(int id){
+    public Agendamento pesquisarAgendamentoPorID(Integer id){
         return new AgendamentosDAO().pesqusarPorId(id);
     }
     

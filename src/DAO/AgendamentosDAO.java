@@ -14,7 +14,6 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import javax.swing.JOptionPane;
 import model.entities.Agendamento;
 import model.entities.Cliente;
 import model.entities.Interno;
