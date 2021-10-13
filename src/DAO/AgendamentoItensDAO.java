@@ -11,12 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import model.entities.AgendamentoItem;
-import model.entities.Cliente;
-import model.entities.Interno;
 import model.entities.Procedimento;
 
 /**
@@ -69,9 +66,9 @@ public class AgendamentoItensDAO {
     
     
     
-    public List<Procedimento> pesquisarAgendamentoItems(){
-        List<Procedimento> listaAgendamentoItems = new ArrayList<>();
-        Statement st =null;
+    public List<AgendamentoItem> pesquisarAgendamentoItems(Integer idAgendamento){
+        List<AgendamentoItem> listaAgendamentoItems = new ArrayList<>();
+        PreparedStatement st =null;
         ResultSet rs = null;
        //    Agendamento
        //    Procedimento
@@ -80,16 +77,20 @@ public class AgendamentoItensDAO {
        //    ID
         try{
             conn = ConexaoDB.getConnection();
-             st = conn.createStatement();
-             rs = st.executeQuery("select a.procedimento as ID" + ","
+             st = conn.prepareStatement("select a.procedimento as ID" + ","
                                   +"p.Descricao" + ","
                                   +"p.Valor" + " "
                                   +"from Agendamentoitens as a" + " "
-                                  +"inner join Procedimentos as p on p.id = a.procedimento");
+                                  +"inner join Procedimentos as p on p.id = a.procedimento" + " "
+                                  + "where a.Agendamento = ?");
+             st.setInt(1, idAgendamento);
+             rs = st.executeQuery();
+             
+             
              
              while(rs.next()){
-                 Procedimento p = carregarAgendamentoItemGrid(rs);
-                 listaAgendamentoItems.add(p);
+                 AgendamentoItem ai = carregarAgendamentoItemGrid(rs);
+                 listaAgendamentoItems.add(ai);
              }
              return listaAgendamentoItems;
              
@@ -154,8 +155,9 @@ public class AgendamentoItensDAO {
         
     }
     
-    public Procedimento carregarAgendamentoItemGrid(ResultSet rs){
+    public AgendamentoItem carregarAgendamentoItemGrid(ResultSet rs){
         Procedimento p = new Procedimento();
+        AgendamentoItem ai = new AgendamentoItem();
         
         //Select ID	Descricao	Valor"
         try {
@@ -164,8 +166,10 @@ public class AgendamentoItensDAO {
             p.setDetalhes(rs.getString("Descricao"));
             p.setValor(rs.getDouble("Valor"));
             
-     
-            return p;
+            ai.setProcedimento(p);
+            
+            return ai;
+           
         }
         catch(SQLException e){
             throw new DBException("Erro: " + e.getMessage());

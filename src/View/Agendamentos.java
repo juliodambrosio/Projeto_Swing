@@ -46,9 +46,9 @@ public class Agendamentos extends javax.swing.JFrame {
         jFrame2 = new javax.swing.JFrame();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAgendamentos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtValorTotal = new javax.swing.JTextField();
         dtFinal = new com.toedter.calendar.JDateChooser();
@@ -99,7 +99,7 @@ public class Agendamentos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblAgendamentos);
 
-        jButton1.setText("Excluir");
+        btnExcluir.setText("Excluir");
 
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +108,12 @@ public class Agendamentos extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Novo");
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Valor Total (Dia)");
 
@@ -143,11 +148,11 @@ public class Agendamentos extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(btnExcluir)
                                         .addGap(197, 197, 197)
                                         .addComponent(btnPesquisar)
                                         .addGap(201, 201, 201)
-                                        .addComponent(jButton3)))
+                                        .addComponent(btnNovo)))
                                 .addGap(0, 106, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -184,9 +189,9 @@ public class Agendamentos extends javax.swing.JFrame {
                     .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnExcluir)
                     .addComponent(btnPesquisar)
-                    .addComponent(jButton3))
+                    .addComponent(btnNovo))
                 .addGap(49, 49, 49))
         );
 
@@ -209,6 +214,11 @@ public class Agendamentos extends javax.swing.JFrame {
        }
         
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        new NovoAgendamento(null,null).setVisible(true);
+        
+    }//GEN-LAST:event_btnNovoActionPerformed
 
 
     public void carregarTabela(){
@@ -293,11 +303,11 @@ public class Agendamentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private com.toedter.calendar.JDateChooser dtFinal;
     private com.toedter.calendar.JDateChooser dtInicial;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
     private javax.swing.JLabel jLabel1;
