@@ -151,4 +151,6 @@ public class Agendamento {
     public Double valorTotalDia(String dataInicial, String dataFinal){
         return  new AgendamentosDAO().valorTotalDia(dataInicial, dataFinal);   
     }
+    
+  
 }

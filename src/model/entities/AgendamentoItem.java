@@ -6,7 +6,10 @@
 package model.entities;
 
 
+import DAO.AgendamentoItensDAO;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -91,4 +94,9 @@ public class AgendamentoItem {
         
     }
     
+      public List<String> puxarAtendimentos(){
+        List<String> listaProcedimentos = new ArrayList<>();
+        listaProcedimentos = new AgendamentoItensDAO().puxarProcedimentos();
+        return listaProcedimentos;
+    }
 }

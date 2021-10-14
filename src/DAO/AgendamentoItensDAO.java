@@ -10,6 +10,7 @@ import ConexaoDB.ConexaoDB;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -108,7 +109,36 @@ public class AgendamentoItensDAO {
         
     }
     
-    
+    public List<String> puxarProcedimentos(){
+        List<String> listaProcedimentos = new ArrayList<>();
+        Statement st=null;
+        ResultSet rs = null;
+        try{
+            
+            conn = ConexaoDB.getConnection();
+            st = conn.createStatement();
+            
+            rs = st.executeQuery("select Descricao from Procedimentos");
+            
+            while(rs.next()){
+                String proc = rs.getString("Descricao");
+                listaProcedimentos.add(proc);
+                
+            }
+            
+            
+            return listaProcedimentos;
+        }
+        catch(SQLException e){
+            throw new DBException("Erro ao Puxar o atendimentos");
+        }
+        
+        finally{
+            ConexaoDB.closeConnection();
+            ConexaoDB.closeStatement(st);
+        }
+        
+    }
     
     public Double valorTotalDia(String dataInicial, String dataFinal){
         double valorTotalDia = 0.00;
