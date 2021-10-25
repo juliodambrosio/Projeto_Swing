@@ -120,8 +120,9 @@ public class Agendamento {
         return true;
     }
 
-    public void cadastrarAgendamento(Agendamento agendamento){
-        new AgendamentosDAO().cadastrarAgendamento(agendamento);
+    public Integer cadastrarAgendamento(Agendamento agendamento){
+      Integer idInserido = new AgendamentosDAO().cadastrarAgendamento(agendamento);
+      return idInserido;
     }
     
     public void alterarAgendamento(Agendamento agendamento){

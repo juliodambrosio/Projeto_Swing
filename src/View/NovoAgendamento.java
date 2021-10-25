@@ -104,8 +104,10 @@ public class NovoAgendamento extends javax.swing.JFrame {
 
         cmbProcedimento.setEditable(true);
         cmbProcedimento.setAutoscrolls(true);
+        cmbProcedimento.setEnabled(false);
 
         btnIncluirProcedimento.setText("+");
+        btnIncluirProcedimento.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

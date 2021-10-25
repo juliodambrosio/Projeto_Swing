@@ -349,6 +349,7 @@
                   <StringArray count="0"/>
                 </Property>
                 <Property name="autoscrolls" type="boolean" value="true"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -357,6 +358,7 @@
             <Component class="javax.swing.JButton" name="btnIncluirProcedimento">
               <Properties>
                 <Property name="text" type="java.lang.String" value="+"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

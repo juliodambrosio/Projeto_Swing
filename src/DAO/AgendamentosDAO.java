@@ -25,8 +25,9 @@ import model.entities.Interno;
 public class AgendamentosDAO {
     
    private Connection conn = null;
-   public void cadastrarAgendamento(Agendamento agendamento){
+   public Integer cadastrarAgendamento(Agendamento agendamento){
        PreparedStatement st = null;
+       ResultSet rs = null;
        try{
            conn = ConexaoDB.getConnection();
            st = conn.prepareStatement("insert into Agendamentos("
@@ -43,7 +44,7 @@ public class AgendamentosDAO {
                    + "?" + ","
                    + "?" + ","
                    + "?" + ","
-                   + "?" + ")");
+                   + "?" + ")",Statement.RETURN_GENERATED_KEYS);
            
            st.setDate(1, agendamento.getDataHoraMarcada());
            st.setInt(2, agendamento.getCliente().getId());
@@ -52,9 +53,15 @@ public class AgendamentosDAO {
            st.setString(5, String.valueOf(agendamento.getCancelado()));
            st.setDouble(6, agendamento.getDuracaoTotal());
            
-           st.execute();
-                  
-                  
+           st.executeUpdate();
+           
+           rs = st.getGeneratedKeys();
+           Integer idInserido=null;
+           if(rs.next()){
+               idInserido = rs.getInt(1);
+           }
+            
+           return idInserido;
        }
        catch(SQLException e){
            throw new DBException("Erro + " + e.getMessage());
